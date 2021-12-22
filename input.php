@@ -33,12 +33,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $dbh = db_conn();
       try{
 /* (1) 実行するSQL文を用意する            */
+          $sql = 'SELECT COUNT(id) FROM members WHERE email = :email';
           /* $sql = 'xxxxxxxxxxxxx';  */
           $stmt = $dbh->prepare($sql);
           $stmt->bindValue(':email', $email, PDO::PARAM_STR);
           $stmt->execute();
 		  $record = $stmt->fetch();
 /* (2) 条件判定を記述            */
+          if($record['COUNT(id)'] > 0){
           /* if ( xxxxxxxx ) { */
 			  $error['email'] = 'duplicate';   // eメール重複エラー
 		  }
@@ -54,6 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		  $_SESSION['join'] = $_POST;
 		  $_SESSION['join']['image'] = $image;
 /* (3) 画面遷移の命令を記述        */
+        header('Location: entry.php');
         /* xxxxxxxxxxxxxxxxx */
 		  exit();
    }

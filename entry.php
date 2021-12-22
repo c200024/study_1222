@@ -6,6 +6,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $email = htmlspecialchars($_SESSION['join']['email'], ENT_QUOTES, 'UTF-8');
         $user = htmlspecialchars($_SESSION['join']['name'], ENT_QUOTES, 'UTF-8');
 /* (1)  パスワード　データを取得する処理を記述                    */
+        $password = htmlspecialchars($_SESSION['join']['password'], ENT_QUOTES, 'UTF-8');
         /* $password = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
         $picture = htmlspecialchars($_SESSION['join']['image'], ENT_QUOTES, 'UTF-8');
         $dbh = db_conn();
@@ -19,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $stmt->execute();
 	        unset($_SESSION['join']);
 /* (2)  画面遷移処理を記述                      */
+            header('Location: thanks.php');
             /*  xxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 	        exit();
         }catch (PDOException $e){
@@ -73,8 +75,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<img src="./member_picture/<?php echo $picture; ?>" width="100" height="100" alt="" />
 		</dd>
 		</dl>
-/* (3)  リンク表示処理を記述                      */
-        /* <div><a href=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  修正する</a>
+<!--/* (3)  リンク表示処理を記述                      */
+        /* <div><a href=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  修正する</a>-->
 		<div><a href="input.php?action=rewrite">&laquo;&nbsp;修正する</a>　|　
 			<input type="submit" value="登録する" />
 		</div>
